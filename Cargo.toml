@@ -1,7 +1,6 @@
 [package]
 name = "hecto"
 version = "0.1.0"
-authors = "oyzy"
 edition = "2021"
 description = "Learn Rust By Creating An Text Editor"
 
