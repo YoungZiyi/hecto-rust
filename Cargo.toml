@@ -1,7 +1,9 @@
 [package]
-name = "hecto-rust"
+name = "hecto"
 version = "0.1.0"
+authors = "oyzy"
 edition = "2021"
+description = "Learn Rust By Creating An Text Editor"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
