@@ -8,3 +8,4 @@ description = "Learn Rust By Creating An Text Editor"
 
 [dependencies]
 termion = "1"
+unicode-segmentation = "1"
