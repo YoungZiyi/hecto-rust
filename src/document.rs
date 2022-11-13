@@ -1,3 +1,4 @@
+use crate::Position;
 use crate::Row;
 use std::fs;
 
@@ -27,5 +28,18 @@ impl Document {
     }
     pub fn len(&self) -> usize {
         self.rows.len()
+    }
+    pub fn insert(&mut self, at: &Position, c: char) {
+        // Insert a character in specific position
+        if at.y == self.len() {
+            // if at.y equals self.rows.len(), this means we starting a new line
+            let mut row = Row::default();
+            row.insert(0, c);
+            self.rows.push(row);
+        } else if at.y < self.len() {
+            // else we insert the character into self.rows[at.y][at.x]
+            let row = self.rows.get_mut(at.y).unwrap();
+            row.insert(at.x, c);
+        }
     }
 }
