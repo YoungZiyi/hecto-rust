@@ -29,7 +29,22 @@ impl Document {
     pub fn len(&self) -> usize {
         self.rows.len()
     }
+    fn insert_newline(&mut self, at: &Position) {
+        if at.y > self.len() {
+            return;
+        }
+        if at.y == self.len() {
+            self.rows.push(Row::default());
+            return;
+        }
+        let new_row = self.rows.get_mut(at.y).unwrap().split(at.x);
+        self.rows.insert(at.y + 1, new_row);
+    }
     pub fn insert(&mut self, at: &Position, c: char) {
+        if c == '\n' {
+            self.insert_newline(at);
+            return;
+        }
         // Insert a character in specific position
         if at.y == self.len() {
             // if at.y equals self.rows.len(), this means we starting a new line
@@ -40,6 +55,20 @@ impl Document {
             // else we insert the character into self.rows[at.y][at.x]
             let row = self.rows.get_mut(at.y).unwrap();
             row.insert(at.x, c);
+        }
+    }
+    pub fn delete(&mut self, at: &Position) {
+        let len = self.len();
+        if at.y >= len {
+            return;
+        }
+        if at.x == self.rows.get_mut(at.y).unwrap().len() && at.y < len - 1 {            
+            let next_row = self.rows.remove(at.y + 1);            
+            let row = self.rows.get_mut(at.y).unwrap();            
+            row.append(&next_row);            
+        } else {            
+            let row = self.rows.get_mut(at.y).unwrap();            
+            row.delete(at.x);            
         }
     }
 }
